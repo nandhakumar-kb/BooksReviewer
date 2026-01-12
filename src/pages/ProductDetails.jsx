@@ -189,7 +189,7 @@ export default function ProductDetails() {
                             <p className="text-gray-600 mt-1">More books from {book.category}</p>
                         </div>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-8 sm:gap-8">
                         {relatedBooks.map(relatedBook => (
                             <BookCard key={relatedBook.id} book={relatedBook} />
                         ))}
