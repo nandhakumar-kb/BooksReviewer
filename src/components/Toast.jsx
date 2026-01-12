@@ -34,7 +34,7 @@ export default function Toast({ message, type = 'info', onClose, duration = 5000
 
   return (
     <div 
-      className={`fixed top-20 right-4 z-[70] max-w-md animate-slide-in-right shadow-lg ${STYLES[type]} border rounded-lg p-4 flex items-start gap-3`} 
+      className={`relative animate-slide-in-right shadow-lg ${STYLES[type]} border rounded-lg p-4 flex items-start gap-3`} 
       role="alert"
       aria-live="assertive"
       aria-atomic="true"

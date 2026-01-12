@@ -11,6 +11,7 @@ export default function Account() {
     const navigate = useNavigate()
     const [orders, setOrders] = useState([])
     const [loadingOrders, setLoadingOrders] = useState(true)
+    const [activeTab, setActiveTab] = useState('orders') // Track active tab
 
     const fetchOrders = useCallback(async () => {
         try {
@@ -77,56 +78,107 @@ export default function Account() {
 
                     {/* Sidebar */}
                     <div className="p-6 border-b md:border-b-0 md:border-r border-gray-100 space-y-2">
-                        <button className="w-full text-left px-4 py-3 bg-orange-500 text-white rounded-lg font-medium flex items-center gap-3 shadow-sm hover:bg-orange-600 transition-colors">
+                        <button 
+                            onClick={() => setActiveTab('orders')}
+                            className={`w-full text-left px-4 py-3 rounded-lg font-medium flex items-center gap-3 shadow-sm transition-colors ${
+                                activeTab === 'orders' 
+                                    ? 'bg-orange-500 text-white hover:bg-orange-600' 
+                                    : 'text-gray-600 hover:bg-orange-50'
+                            }`}
+                        >
                             <Package size={18} /> Orders
                         </button>
-                        <button className="w-full text-left px-4 py-3 text-gray-600 hover:bg-orange-50 rounded-lg font-medium flex items-center gap-3 transition-colors">
+                        <button 
+                            onClick={() => setActiveTab('profile')}
+                            className={`w-full text-left px-4 py-3 rounded-lg font-medium flex items-center gap-3 transition-colors ${
+                                activeTab === 'profile' 
+                                    ? 'bg-orange-500 text-white shadow-sm hover:bg-orange-600' 
+                                    : 'text-gray-600 hover:bg-orange-50'
+                            }`}
+                        >
                             <User size={18} /> Profile Details
                         </button>
                     </div>
 
                     {/* Content Area */}
                     <div className="col-span-2 p-6">
-                        <h2 className="text-lg font-bold mb-6">Recent Orders</h2>
+                        {activeTab === 'orders' ? (
+                            <>
+                                <h2 className="text-lg font-bold mb-6">Recent Orders</h2>
 
-                        {loadingOrders ? (
-                            <div className="text-center py-10">Loading orders...</div>
-                        ) : orders.length === 0 ? (
-                            <div className="text-center py-10 text-gray-400">No orders found.</div>
+                                {loadingOrders ? (
+                                    <div className="text-center py-10">Loading orders...</div>
+                                ) : orders.length === 0 ? (
+                                    <div className="text-center py-10 text-gray-400">No orders found.</div>
+                                ) : (
+                                    <div className="space-y-4">
+                                        {orders.map(order => (
+                                            <div key={order.id} className="border border-gray-100 rounded-xl p-4 hover:border-gray-300 transition-all">
+                                                <div className="flex justify-between items-start mb-3">
+                                                    <div>
+                                                        <p className="font-bold text-sm text-gray-900">Order #{order.id}</p>
+                                                        <p className="text-xs text-gray-500">{new Date(order.created_at).toLocaleDateString()}</p>
+                                                    </div>
+                                                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${order.status === 'Delivered' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+                                                        }`}>
+                                                        {order.status}
+                                                    </span>
+                                                </div>
+                                                <div className="text-sm text-gray-600 mb-3">
+                                                    <div className="space-y-1">
+                                                        {Array.isArray(order.items_json) ? (
+                                                            order.items_json.map((item, idx) => (
+                                                                <div key={idx} className="flex justify-between">
+                                                                    <span>{item.title} x{item.quantity}</span>
+                                                                    <span className="font-semibold">₹{(item.price * item.quantity).toFixed(0)}</span>
+                                                                </div>
+                                                            ))
+                                                        ) : (
+                                                            <span className="text-gray-400">Order details not available</span>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                <div className="flex justify-between items-center pt-3 border-t border-gray-100">
+                                                    <span className="font-bold">₹{order.total_amount}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </>
                         ) : (
-                            <div className="space-y-4">
-                                {orders.map(order => (
-                                    <div key={order.id} className="border border-gray-100 rounded-xl p-4 hover:border-gray-300 transition-all">
-                                        <div className="flex justify-between items-start mb-3">
+                            <>
+                                <h2 className="text-lg font-bold mb-6">Profile Details</h2>
+                                <div className="space-y-6">
+                                    <div className="bg-gray-50 p-6 rounded-xl">
+                                        <div className="space-y-4">
                                             <div>
-                                                <p className="font-bold text-sm text-gray-900">Order #{order.id}</p>
-                                                <p className="text-xs text-gray-500">{new Date(order.created_at).toLocaleDateString()}</p>
+                                                <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                                                <p className="text-gray-900 bg-white px-4 py-3 rounded-lg border border-gray-200">{user.email}</p>
                                             </div>
-                                            <span className={`px-3 py-1 rounded-full text-xs font-bold ${order.status === 'Delivered' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
-                                                }`}>
-                                                {order.status}
-                                            </span>
-                                        </div>
-                                        <div className="text-sm text-gray-600 mb-3">
-                                            <div className="space-y-1">
-                                                {Array.isArray(order.items_json) ? (
-                                                    order.items_json.map((item, idx) => (
-                                                        <div key={idx} className="flex justify-between">
-                                                            <span>{item.title} x{item.quantity}</span>
-                                                            <span className="font-semibold">₹{(item.price * item.quantity).toFixed(0)}</span>
-                                                        </div>
-                                                    ))
-                                                ) : (
-                                                    <span className="text-gray-400">Order details not available</span>
-                                                )}
+                                            <div>
+                                                <label className="block text-sm font-semibold text-gray-700 mb-2">User ID</label>
+                                                <p className="text-gray-600 bg-white px-4 py-3 rounded-lg border border-gray-200 text-sm font-mono">{user.id}</p>
                                             </div>
-                                        </div>
-                                        <div className="flex justify-between items-center pt-3 border-t border-gray-100">
-                                            <span className="font-bold">₹{order.total_amount}</span>
+                                            <div>
+                                                <label className="block text-sm font-semibold text-gray-700 mb-2">Account Created</label>
+                                                <p className="text-gray-900 bg-white px-4 py-3 rounded-lg border border-gray-200">
+                                                    {new Date(user.created_at).toLocaleDateString('en-IN', { 
+                                                        year: 'numeric', 
+                                                        month: 'long', 
+                                                        day: 'numeric' 
+                                                    })}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                ))}
-                            </div>
+                                    <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                                        <p className="text-sm text-blue-800">
+                                            <strong>💡 Tip:</strong> Your profile is automatically created when you sign up. All your order history is linked to this account.
+                                        </p>
+                                    </div>
+                                </div>
+                            </>
                         )}
                     </div>
 

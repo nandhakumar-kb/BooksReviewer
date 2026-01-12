@@ -33,15 +33,16 @@ export function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={toast}>
       {children}
-      <div className="fixed top-20 right-4 z-[70] space-y-2">
+      <div className="fixed top-20 right-4 z-[70] space-y-2 max-w-md pointer-events-none">
         {toasts.map(({ id, message, type, duration }) => (
-          <Toast
-            key={id}
-            message={message}
-            type={type}
-            duration={duration}
-            onClose={() => removeToast(id)}
-          />
+          <div key={id} className="pointer-events-auto">
+            <Toast
+              message={message}
+              type={type}
+              duration={duration}
+              onClose={() => removeToast(id)}
+            />
+          </div>
         ))}
       </div>
     </ToastContext.Provider>
