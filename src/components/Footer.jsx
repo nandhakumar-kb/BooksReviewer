@@ -151,12 +151,12 @@ export default function Footer() {
                                 </div>
                                 <span className="group-hover:text-slate-900 transition-colors">+91 123 456 7890</span>
                             </li> */}
-                            <li className="flex items-center gap-4 text-sm text-slate-600 group">
+                            {/* <li className="flex items-center gap-4 text-sm text-slate-600 group">
                                 <div className="p-2 bg-white border border-slate-100 rounded-lg group-hover:bg-orange-50 group-hover:text-orange-600 group-hover:border-orange-100 transition-all shadow-sm">
                                     <Mail size={18} />
                                 </div>
                                 <span className="group-hover:text-slate-900 transition-colors">contact@booksreviewer.com</span>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </div>

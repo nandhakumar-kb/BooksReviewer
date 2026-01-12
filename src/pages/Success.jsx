@@ -37,7 +37,7 @@ export default function Success() {
             </p>
             
             {/* Contact Info */}
-            <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 mb-12 max-w-md">
+            {/* <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 mb-12 max-w-md">
                 <h3 className="font-bold text-gray-900 mb-4 text-center">Questions? Contact Us</h3>
                 <div className="space-y-2 text-sm">
                     <div className="flex items-center gap-2 text-gray-700">
@@ -49,7 +49,7 @@ export default function Success() {
                         <a href="mailto:support@booksreviewer.com" className="hover:text-blue-600">support@booksreviewer.com</a>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* Next Steps */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl w-full mb-12">

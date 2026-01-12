@@ -226,44 +226,6 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* Featured Categories */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-                    <div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Explore Categories</h2>
-                        <p className="text-gray-500 text-lg max-w-xl">Find the perfect book to match your current goals and interests.</p>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {FEATURED_CATEGORIES.map((category, idx) => {
-                        const Icon = category.icon
-                        return (
-                            <div
-                                key={idx}
-                                className="group relative bg-white rounded-2xl shadow-sm border border-gray-200 p-8 hover:shadow-lg hover:border-amber-200 transition-all duration-300 cursor-pointer overflow-hidden"
-                            >
-                                <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${category.color} opacity-[0.03] rounded-full -mr-10 -mt-10 group-hover:scale-110 transition-transform duration-700`}></div>
-                                {/* Icon in colored circle */}
-                                <div className="mb-6">
-                                    <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${category.color} opacity-10 rounded-full`}>
-                                        <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br ${category.color} text-white rounded-full shadow-md group-hover:scale-110 transition-transform duration-300`}>
-                                            <Icon size={24} />
-                                        </div>
-                                    </div>
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">{category.name}</h3>
-                                <p className="text-gray-500 mb-6 leading-relaxed">{category.description}</p>
-                                <div className="flex items-center gap-2 text-sm font-bold text-gray-400 group-hover:text-amber-600 transition-colors">
-                                    <span>Browse Books</span>
-                                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                                </div>
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
-
             {/* Book Combos Section */}
             {combos.length > 0 && (
                 <div className="py-24 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">

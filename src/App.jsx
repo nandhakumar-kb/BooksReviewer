@@ -9,6 +9,7 @@ import ScrollToTop from './components/ScrollToTop'
 import Navbar from './components/Navbar'
 import CartDrawer from './components/CartDrawer'
 import Footer from './components/Footer'
+import AdminRoute from './components/AdminRoute'
 import { Loader } from 'lucide-react'
 
 // Lazy load pages for code splitting
@@ -21,6 +22,14 @@ const Login = lazy(() => import('./pages/Login'))
 const CheckoutPage = lazy(() => import('./pages/CheckoutPage'))
 const Success = lazy(() => import('./pages/Success'))
 const NotFound = lazy(() => import('./pages/NotFound'))
+
+// Admin pages
+const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'))
+const OrdersManagement = lazy(() => import('./pages/admin/OrdersManagement'))
+const ProductsManagement = lazy(() => import('./pages/admin/ProductsManagement'))
+const CombosManagement = lazy(() => import('./pages/admin/CombosManagement'))
+const Analytics = lazy(() => import('./pages/admin/Analytics'))
+const CustomersManagement = lazy(() => import('./pages/admin/CustomersManagement'))
 
 // Loading fallback component
 function PageLoader() {
@@ -62,6 +71,15 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/checkout" element={<CheckoutPage />} />
                         <Route path="/success" element={<Success />} />
+                        
+                        {/* Admin Routes */}
+                        <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+                        <Route path="/admin/orders" element={<AdminRoute><OrdersManagement /></AdminRoute>} />
+                        <Route path="/admin/products" element={<AdminRoute><ProductsManagement /></AdminRoute>} />
+                        <Route path="/admin/combos" element={<AdminRoute><CombosManagement /></AdminRoute>} />
+                        <Route path="/admin/analytics" element={<AdminRoute><Analytics /></AdminRoute>} />
+                        <Route path="/admin/customers" element={<AdminRoute><CustomersManagement /></AdminRoute>} />
+                        
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </Suspense>
