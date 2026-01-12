@@ -43,13 +43,13 @@ export default function CheckoutPage() {
 
     const [errors, setErrors] = useState({})
 
-    // Redirect if cart is empty
+    // Redirect if cart is empty (silently, without toast to avoid spam after order completion)
     useEffect(() => {
         if (cart.length === 0) {
-            toast.error('Your cart is empty')
-            navigate('/')
+            const timer = setTimeout(() => navigate('/'), 100)
+            return () => clearTimeout(timer)
         }
-    }, [cart.length, navigate, toast])
+    }, [cart.length, navigate])
 
     const validateForm = () => {
         const newErrors = {}
