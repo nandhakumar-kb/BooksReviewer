@@ -65,17 +65,23 @@ export default function Analytics() {
         filteredOrders = orders?.filter(o => new Date(o.created_at) >= weekAgo) || []
       }
 
-      // Calculate total revenue
-      const totalRevenue = filteredOrders.reduce((sum, order) => sum + parseFloat(order.total_amount || 0), 0)
+      // Calculate total revenue (exclude cancelled orders)
+      const totalRevenue = filteredOrders.reduce((sum, order) => {
+        if (order.status === 'Cancelled') return sum
+        return sum + parseFloat(order.total_amount || 0)
+      }, 0)
       
-      // Calculate average order value
-      const avgOrderValue = filteredOrders.length > 0 ? totalRevenue / filteredOrders.length : 0
+      // Calculate average order value (exclude cancelled orders)
+      const activeOrders = filteredOrders.filter(o => o.status !== 'Cancelled')
+      const avgOrderValue = activeOrders.length > 0 ? totalRevenue / activeOrders.length : 0
 
       // Revenue by category (from order items)
       const categoryRevenue = {}
       const bookSales = {}
 
       filteredOrders.forEach(order => {
+        // Skip cancelled orders for revenue calculations
+        if (order.status === 'Cancelled') return
         try {
           const items = JSON.parse(order.items_json || '[]')
           items.forEach(item => {

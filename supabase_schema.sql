@@ -104,6 +104,16 @@ create policy "Users can view own orders" on orders
     auth.uid() = user_id OR user_id IS NULL
   );
 
+-- Orders: Users can cancel their own orders (only Pending/Confirmed status)
+create policy "Users can cancel own orders" on orders
+  for update using (
+    auth.uid() = user_id AND 
+    status IN ('Pending', 'Confirmed')
+  )
+  with check (
+    status = 'Cancelled'
+  );
+
 -- =============================================================================
 -- INDEXES FOR BETTER PERFORMANCE
 -- =============================================================================

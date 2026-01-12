@@ -62,7 +62,10 @@ export default function CustomersManagement() {
         }
         
         customerMap[key].totalOrders++
-        customerMap[key].totalSpent += parseFloat(order.total_amount || 0)
+        // Only add to total spent if order is not cancelled
+        if (order.status !== 'Cancelled') {
+          customerMap[key].totalSpent += parseFloat(order.total_amount || 0)
+        }
         customerMap[key].orders.push(order)
         
         // Update dates

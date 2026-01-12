@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
 import { supabase } from '../lib/supabaseClient'
 import { useNavigate } from 'react-router-dom'
-import { User, Package, LogOut, Loader } from 'lucide-react'
+import { User, Package, LogOut, Loader, XCircle } from 'lucide-react'
 
 export default function Account() {
     const { user, signOut, loading: authLoading } = useAuth()
@@ -42,6 +42,28 @@ export default function Account() {
             navigate('/')
         } catch (error) {
             toast.error('Failed to logout')
+        }
+    }
+
+    const cancelOrder = async (orderId) => {
+        if (!confirm('Are you sure you want to cancel this order?')) return
+
+        try {
+            const { error } = await supabase
+                .from('orders')
+                .update({ status: 'Cancelled' })
+                .eq('id', orderId)
+
+            if (error) throw error
+
+            // Update local state
+            setOrders(orders.map(order => 
+                order.id === orderId ? { ...order, status: 'Cancelled' } : order
+            ))
+            toast.success('Order cancelled successfully')
+        } catch (error) {
+            console.error('Error cancelling order:', error)
+            toast.error('Failed to cancel order')
         }
     }
 
@@ -119,8 +141,11 @@ export default function Account() {
                                                         <p className="font-bold text-sm text-gray-900">Order #{order.id}</p>
                                                         <p className="text-xs text-gray-500">{new Date(order.created_at).toLocaleDateString()}</p>
                                                     </div>
-                                                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${order.status === 'Delivered' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
-                                                        }`}>
+                                                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                                                        order.status === 'Delivered' ? 'bg-green-100 text-green-700' : 
+                                                        order.status === 'Cancelled' ? 'bg-red-100 text-red-700' :
+                                                        'bg-orange-100 text-orange-700'
+                                                    }`}>
                                                         {order.status}
                                                     </span>
                                                 </div>
@@ -140,6 +165,15 @@ export default function Account() {
                                                 </div>
                                                 <div className="flex justify-between items-center pt-3 border-t border-gray-100">
                                                     <span className="font-bold">₹{order.total_amount}</span>
+                                                    {(order.status === 'Pending' || order.status === 'Confirmed') && (
+                                                        <button
+                                                            onClick={() => cancelOrder(order.id)}
+                                                            className="flex items-center gap-1 px-3 py-1.5 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium"
+                                                        >
+                                                            <XCircle size={16} />
+                                                            Cancel Order
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </div>
                                         ))}

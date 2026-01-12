@@ -55,8 +55,11 @@ export default function AdminDashboard() {
 
       if (combosError) throw combosError
 
-      // Calculate stats
-      const totalRevenue = orders?.reduce((sum, order) => sum + parseFloat(order.total_amount || 0), 0) || 0
+      // Calculate stats (exclude cancelled orders from revenue)
+      const totalRevenue = orders?.reduce((sum, order) => {
+        if (order.status === 'Cancelled') return sum
+        return sum + parseFloat(order.total_amount || 0)
+      }, 0) || 0
       const pendingOrders = orders?.filter(o => o.status === 'Pending').length || 0
 
       setStats({
