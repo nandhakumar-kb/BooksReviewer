@@ -310,7 +310,12 @@ export default function OrdersManagement() {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {filteredOrders.map((order) => {
-                    const items = JSON.parse(order.items_json || '[]')
+                    let items = []
+                    try {
+                      items = JSON.parse(order.items_json || '[]')
+                    } catch (e) {
+                      console.error('Error parsing items_json for order', order.id, e)
+                    }
                     return (
                     <tr key={order.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
