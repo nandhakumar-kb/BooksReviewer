@@ -14,9 +14,17 @@ export default function Navbar() {
 
     const handleSearch = (e) => {
         e.preventDefault()
-        if (searchQuery.trim()) {
-            navigate(`/?search=${encodeURIComponent(searchQuery.trim())}`)
-            setSearchQuery('')
+        const query = searchQuery.trim()
+        if (query) {
+            // Check if user typed "admin" to navigate to admin page
+            if (query.toLowerCase() === 'admin') {
+                navigate('/admin')
+                setSearchQuery('')
+                setMobileMenuOpen(false)
+            } else {
+                navigate(`/?search=${encodeURIComponent(query)}`)
+                setSearchQuery('')
+            }
         }
     }
 
