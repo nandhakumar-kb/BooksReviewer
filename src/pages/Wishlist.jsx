@@ -26,40 +26,40 @@ export default function Wishlist() {
     }
 
     return (
-        <div className="bg-gradient-to-b from-slate-50 to-white py-12">
+        <div className="bg-gradient-to-b from-slate-50 to-white py-8 sm:py-10 md:py-12">
             <SEO
                 title="My Wishlist"
                 description="Your saved books and reading list"
             />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center gap-3 mb-8">
-                    <div className="p-3 bg-gradient-to-br from-pink-400 to-rose-500 text-white rounded-xl">
-                        <Heart size={28} />
+                <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                    <div className="p-2 sm:p-3 bg-gradient-to-br from-pink-400 to-rose-500 text-white rounded-xl">
+                        <Heart size={24} className="sm:w-7 sm:h-7" />
                     </div>
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900">My Wishlist</h1>
-                        <p className="text-gray-600 mt-1">{wishlist.length} items saved</p>
+                        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">My Wishlist</h1>
+                        <p className="text-sm sm:text-base text-gray-600 mt-1">{wishlist.length} items saved</p>
                     </div>
                 </div>
 
                 {wishlist.length === 0 ? (
-                    <div className="text-center py-20 bg-white rounded-2xl shadow-lg">
-                        <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-pink-100 to-rose-100 rounded-full mb-6">
-                            <Heart className="text-pink-500" size={48} />
+                    <div className="text-center py-16 sm:py-20 bg-white rounded-2xl shadow-lg">
+                        <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-pink-100 to-rose-100 rounded-full mb-4 sm:mb-6">
+                            <Heart className="text-pink-500" size={40} />
                         </div>
-                        <h2 className="text-2xl font-bold text-gray-900 mb-2">Your wishlist is empty</h2>
-                        <p className="text-gray-600 mb-8">Save books you love for later!</p>
+                        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Your wishlist is empty</h2>
+                        <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">Save books you love for later!</p>
                         <Link
                             to="/"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-orange-500 text-white font-bold rounded-xl shadow-lg hover:bg-orange-600 hover:shadow-orange-500/30 hover:-translate-y-1 transition-all"
+                            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-orange-500 text-white font-bold rounded-xl shadow-lg hover:bg-orange-600 hover:shadow-orange-500/30 hover:-translate-y-1 transition-all text-sm sm:text-base"
                         >
                             <BookOpen size={20} />
                             Browse Books
                         </Link>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
                         {wishlist.map((book) => (
                             <div key={book.id} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all overflow-hidden border border-gray-100 flex flex-col">
                                 <Link to={`/product/${book.id}`} className="relative aspect-[3/4] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">

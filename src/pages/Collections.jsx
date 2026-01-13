@@ -95,7 +95,7 @@ export default function Collections() {
     }
 
     return (
-        <div className="py-12 bg-gradient-to-b from-gray-50 to-white min-h-screen">
+        <div className="py-8 sm:py-10 md:py-12 bg-gradient-to-b from-gray-50 to-white min-h-screen">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SEO
                 title="Collections"
@@ -103,11 +103,11 @@ export default function Collections() {
             />
 
             {/* Toggle Tabs */}
-            <div className="flex justify-center mb-8">
-                <div className="inline-flex bg-white rounded-xl shadow-md p-1 border border-gray-200">
+            <div className="flex justify-center mb-6 sm:mb-8">
+                <div className="inline-flex bg-white rounded-xl shadow-md p-1 border border-gray-200 w-full sm:w-auto">
                     <button
                         onClick={() => navigate('/collections?type=categories')}
-                        className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 ${
+                        className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base ${
                             viewType === 'categories'
                                 ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg'
                                 : 'text-gray-600 hover:text-gray-900'
@@ -132,10 +132,10 @@ export default function Collections() {
 
             {viewType === 'combos' ? (
                 <>
-                    <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                         Book Combos
                     </h1>
-                    <p className="text-gray-600 text-center mb-12 text-lg">
+                    <p className="text-sm sm:text-base md:text-lg text-gray-600 text-center mb-8 sm:mb-10 md:mb-12">
                         Curated book bundles at amazing discounts
                     </p>
 

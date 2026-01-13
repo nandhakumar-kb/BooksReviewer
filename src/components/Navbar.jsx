@@ -75,16 +75,16 @@ export default function Navbar() {
                         </div>
                     </form>
 
-                    <div className="flex items-center gap-2">
-                        <Link to="/collections" className="hidden lg:block px-4 py-2 text-sm font-semibold text-gray-600 hover:text-orange-600 transition-colors rounded-xl hover:bg-orange-50" aria-label="Browse collections">
+                    <div className="flex items-center gap-1 sm:gap-2">
+                        <Link to="/collections" className="hidden lg:block px-3 sm:px-4 py-2 text-sm font-semibold text-gray-600 hover:text-orange-600 transition-colors rounded-xl hover:bg-orange-50" aria-label="Browse collections">
                             Collections
                         </Link>
-                        <Link to="/account" className="hidden lg:block px-4 py-2 text-sm font-semibold text-gray-600 hover:text-orange-600 transition-colors rounded-xl hover:bg-orange-50" aria-label="My account">
+                        <Link to="/account" className="hidden lg:block px-3 sm:px-4 py-2 text-sm font-semibold text-gray-600 hover:text-orange-600 transition-colors rounded-xl hover:bg-orange-50" aria-label="My account">
                             Account
                         </Link>
 
                         {/* Wishlist */}
-                        <div className="w-px h-6 bg-gray-200 mx-2 hidden lg:block" aria-hidden="true"></div>
+                        <div className="w-px h-6 bg-gray-200 mx-1 sm:mx-2 hidden lg:block" aria-hidden="true"></div>
 
                         <Link
                             to="/wishlist"
@@ -92,9 +92,9 @@ export default function Navbar() {
                             aria-label={`Wishlist${wishlistCount > 0 ? ` (${wishlistCount} items)` : ''}`}
                             title="Wishlist"
                         >
-                            <Heart size={22} className="transition-transform group-hover:scale-110" aria-hidden="true" />
+                            <Heart size={20} className="sm:w-[22px] sm:h-[22px] transition-transform group-hover:scale-110" aria-hidden="true" />
                             {wishlistCount > 0 && (
-                                <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full shadow-sm ring-2 ring-white" aria-label={`${wishlistCount} items in wishlist`}>
+                                <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-[10px] font-bold w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center rounded-full shadow-sm ring-2 ring-white" aria-label={`${wishlistCount} items in wishlist`}>
                                     {wishlistCount}
                                 </span>
                             )}
@@ -106,9 +106,9 @@ export default function Navbar() {
                             aria-label={`Shopping cart${totalItems > 0 ? ` (${totalItems} items)` : ''}`}
                             title="Shopping cart"
                         >
-                            <ShoppingBag size={22} className="transition-transform group-hover:scale-110" aria-hidden="true" />
+                            <ShoppingBag size={20} className="sm:w-[22px] sm:h-[22px] transition-transform group-hover:scale-110" aria-hidden="true" />
                             {totalItems > 0 && (
-                                <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full shadow-sm ring-2 ring-white" aria-label={`${totalItems} items in cart`}>
+                                <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-[10px] font-bold w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center rounded-full shadow-sm ring-2 ring-white" aria-label={`${totalItems} items in cart`}>
                                     {totalItems}
                                 </span>
                             )}
@@ -117,7 +117,7 @@ export default function Navbar() {
                         {/* Mobile Menu Button */}
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2"
+                            className="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 ml-1"
                             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
                             aria-expanded={mobileMenuOpen}
                             aria-controls="mobile-menu"

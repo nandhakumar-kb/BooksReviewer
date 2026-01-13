@@ -74,29 +74,29 @@ export default function Account() {
     )
 
     return (
-        <div className="py-12">
+        <div className="py-8 sm:py-10 md:py-12">
             <div className="max-w-4xl mx-auto px-4">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
 
                 {/* Profile Header */}
-                <div className="p-8 border-b border-gray-100 bg-gradient-to-r from-orange-50 to-amber-50 flex items-center gap-6">
-                    <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-full flex items-center justify-center text-3xl font-bold shadow-lg">
+                <div className="p-6 sm:p-8 border-b border-gray-100 bg-gradient-to-r from-orange-50 to-amber-50 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-full flex items-center justify-center text-2xl sm:text-3xl font-bold shadow-lg flex-shrink-0">
                         {user.email.charAt(0).toUpperCase()}
                     </div>
-                    <div className="flex-1">
-                        <h1 className="text-2xl font-serif font-bold text-gray-900">My Account</h1>
-                        <p className="text-gray-500">{user.email}</p>
+                    <div className="flex-1 min-w-0">
+                        <h1 className="text-xl sm:text-2xl font-serif font-bold text-gray-900">My Account</h1>
+                        <p className="text-sm sm:text-base text-gray-500 truncate">{user.email}</p>
                     </div>
                     <button
                         onClick={handleLogout}
-                        className="text-red-500 hover:bg-red-50 p-2 rounded-lg transition-colors"
+                        className="text-red-500 hover:bg-red-50 p-2 rounded-lg transition-colors self-start sm:self-auto"
                         title="Logout"
                     >
                         <LogOut size={20} />
                     </button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3">
 
                     {/* Sidebar */}
                     <div className="p-6 border-b md:border-b-0 md:border-r border-gray-100 space-y-2">

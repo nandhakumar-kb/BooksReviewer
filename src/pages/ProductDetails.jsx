@@ -88,7 +88,7 @@ export default function ProductDetails() {
     }
 
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 animate-fade-in">
             <SEO
                 title={book.title}
                 description={book.description || `${book.title} by ${book.author}. Available now at Books Reviewer.`}
@@ -100,13 +100,13 @@ export default function ProductDetails() {
             
             <Link
                 to="/"
-                className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-600 mb-6 font-semibold px-4 py-2 rounded-lg hover:bg-orange-50 transition-all group"
+                className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-600 mb-4 sm:mb-6 font-semibold px-4 py-2 rounded-lg hover:bg-orange-50 transition-all group"
             >
                 <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> 
                 Back to Books
             </Link>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 xl:gap-16">
                 {/* Image Section */}
                 <div className="space-y-4">
                     <div className="aspect-[3/4] bg-gray-50 rounded-2xl overflow-hidden shadow-sm border border-gray-100">
@@ -120,16 +120,16 @@ export default function ProductDetails() {
 
                 {/* Details Section */}
                 <div className="flex flex-col">
-                    <span className="text-sm font-bold text-orange-500 tracking-wider uppercase mb-2">
+                    <span className="text-xs sm:text-sm font-bold text-orange-500 tracking-wider uppercase mb-2">
                         {book.category}
                     </span>
-                    <h1 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-2">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-2">
                         {book.title}
                     </h1>
-                    <p className="text-lg text-gray-500 mb-6 italic">by {book.author}</p>
+                    <p className="text-base sm:text-lg text-gray-500 mb-4 sm:mb-6 italic">by {book.author}</p>
 
-                    <div className="flex items-baseline gap-4 mb-8">
-                        <span className="text-3xl font-bold text-gray-900">₹{book.price}</span>
+                    <div className="flex items-baseline gap-3 sm:gap-4 mb-6 sm:mb-8">
+                        <span className="text-2xl sm:text-3xl font-bold text-gray-900">₹{book.price}</span>
                         {book.original_price && book.original_price > book.price && (
                             <>
                                 <span className="text-xl text-gray-400 line-through">₹{Math.round(book.original_price)}</span>

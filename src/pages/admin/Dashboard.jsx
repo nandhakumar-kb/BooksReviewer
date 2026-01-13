@@ -79,15 +79,15 @@ export default function AdminDashboard() {
   }
 
   const StatCard = ({ icon: Icon, label, value, color, subtext }) => (
-    <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow">
+    <div className="bg-white rounded-xl shadow-md p-4 sm:p-6 border border-gray-100 hover:shadow-lg transition-shadow">
       <div className="flex items-start justify-between">
-        <div>
-          <p className="text-gray-600 text-sm font-medium mb-1">{label}</p>
-          <p className={`text-3xl font-bold ${color}`}>{value}</p>
-          {subtext && <p className="text-xs text-gray-500 mt-1">{subtext}</p>}
+        <div className="flex-1 min-w-0">
+          <p className="text-gray-600 text-xs sm:text-sm font-medium mb-1 truncate">{label}</p>
+          <p className={`text-2xl sm:text-3xl font-bold ${color} truncate`}>{value}</p>
+          {subtext && <p className="text-xs text-gray-500 mt-1 truncate">{subtext}</p>}
         </div>
-        <div className={`p-3 rounded-lg ${color.replace('text-', 'bg-').replace('-600', '-100')}`}>
-          <Icon className={color} size={24} />
+        <div className={`p-2 sm:p-3 rounded-lg flex-shrink-0 ${color.replace('text-', 'bg-').replace('-600', '-100')}`}>
+          <Icon className={color} size={20} />
         </div>
       </div>
     </div>
@@ -124,15 +124,15 @@ export default function AdminDashboard() {
   return (
     <AdminLayout>
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
-          <p className="text-gray-600">Welcome back! Here's your store overview.</p>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+          <p className="text-sm sm:text-base text-gray-600">Welcome back! Here's your store overview.</p>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <StatCard
             icon={ShoppingBag}
             label="Total Orders"
@@ -161,27 +161,27 @@ export default function AdminDashboard() {
         </div>
 
         {/* Recent Orders */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-100">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900">Recent Orders</h2>
+        <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+          <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900">Recent Orders</h2>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[640px]">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Order ID
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Amount
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Date
                   </th>
                 </tr>
@@ -189,29 +189,29 @@ export default function AdminDashboard() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {stats.recentOrders.length === 0 ? (
                   <tr>
-                    <td colSpan="5" className="px-6 py-8 text-center text-gray-500">
+                    <td colSpan="5" className="px-3 sm:px-6 py-8 text-center text-sm sm:text-base text-gray-500">
                       No orders yet
                     </td>
                   </tr>
                 ) : (
                   stats.recentOrders.map((order) => (
                     <tr key={order.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                         #{order.id}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">{order.customer_name}</div>
-                        <div className="text-sm text-gray-500">{order.customer_phone}</div>
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                        <div className="text-xs sm:text-sm font-medium text-gray-900">{order.customer_name}</div>
+                        <div className="text-xs text-gray-500">{order.customer_phone}</div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 font-semibold">
                         ₹{parseFloat(order.total_amount).toLocaleString('en-IN')}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(order.status)}`}>
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                        <span className={`px-2 sm:px-3 py-1 inline-flex text-[10px] sm:text-xs leading-5 font-semibold rounded-full ${getStatusColor(order.status)}`}>
                           {order.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                         {formatDate(order.created_at)}
                       </td>
                     </tr>

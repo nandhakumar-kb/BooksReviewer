@@ -83,18 +83,19 @@ export default function CartDrawer() {
             />
 
             {/* Drawer */}
-            <div ref={drawerRef} className="relative w-full max-w-md bg-white h-full shadow-2xl flex flex-col animate-slide-in">
-                <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                    <h2 className="text-lg font-bold">Your Cart</h2>
+            <div ref={drawerRef} className="relative w-full sm:max-w-md bg-white h-full shadow-2xl flex flex-col animate-slide-in">
+                <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-100">
+                    <h2 className="text-lg sm:text-xl font-bold">Your Cart</h2>
                     <button
                         onClick={() => setIsCartOpen(false)}
-                        className="p-2 hover:bg-gray-100 rounded-full"
+                        className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                        aria-label="Close cart"
                     >
                         <X size={20} />
                     </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
                     {cart.length === 0 ? (
                         <EmptyState
                             icon={ShoppingBag}
@@ -105,30 +106,32 @@ export default function CartDrawer() {
                         />
                     ) : (
                         cart.map(item => (
-                            <div key={item.id} className="flex gap-4 p-3 bg-gray-50 rounded-xl">
+                            <div key={item.id} className="flex gap-3 sm:gap-4 p-3 bg-gray-50 rounded-xl">
                                 <img
                                     src={item.image_url}
                                     alt={item.title}
-                                    className="w-20 h-24 object-cover rounded-md"
+                                    className="w-16 h-20 sm:w-20 sm:h-24 object-cover rounded-md flex-shrink-0"
                                 />
-                                <div className="flex-1 flex flex-col justify-between">
+                                <div className="flex-1 flex flex-col justify-between min-w-0">
                                     <div>
-                                        <h3 className="font-semibold text-sm line-clamp-1">{item.title}</h3>
-                                        <p className="text-sm text-gray-500">{item.author}</p>
+                                        <h3 className="font-semibold text-xs sm:text-sm line-clamp-2">{item.title}</h3>
+                                        <p className="text-xs sm:text-sm text-gray-500 truncate">{item.author}</p>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="font-bold">₹{item.price}</span>
-                                        <div className="flex items-center gap-2">
+                                        <span className="font-bold text-sm sm:text-base">\u20b9{item.price}</span>
+                                        <div className="flex items-center gap-1 sm:gap-2">
                                             <button
                                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                                className="p-1 hover:bg-gray-200 rounded"
+                                                className="p-1 hover:bg-gray-200 rounded transition-colors"
+                                                aria-label="Decrease quantity"
                                             >
                                                 <Minus size={14} />
                                             </button>
-                                            <span className="text-sm w-4 text-center">{item.quantity}</span>
+                                            <span className="text-xs sm:text-sm w-4 text-center font-medium">{item.quantity}</span>
                                             <button
                                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                                className="p-1 hover:bg-gray-200 rounded"
+                                                className="p-1 hover:bg-gray-200 rounded transition-colors"
+                                                aria-label="Increase quantity"
                                             >
                                                 <Plus size={14} />
                                             </button>
@@ -137,7 +140,7 @@ export default function CartDrawer() {
                                 </div>
                                 <button
                                     onClick={() => handleRemoveItem(item)}
-                                    className="text-gray-400 hover:text-red-500 self-start p-1 transition-colors focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 rounded"
+                                    className="text-gray-400 hover:text-red-500 self-start p-1 transition-colors focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 rounded flex-shrink-0"
                                     aria-label={`Remove ${item.title} from cart`}
                                 >
                                     <Trash2 size={16} />

@@ -180,24 +180,24 @@ export default function Home() {
                 {/* Hero Content Overlay - Improved Contrast */}
                 <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
                     <div className="text-center text-white px-4 max-w-5xl pointer-events-auto relative z-20">
-                        <div className="inline-block mb-8 px-5 py-2 bg-orange-500/90 backdrop-blur-md rounded-full border border-orange-300/30 shadow-lg animate-fade-in-up">
-                            <span className="text-sm font-bold tracking-wide uppercase text-white">📚 Welcome to Books Reviewer</span>
+                        <div className="inline-block mb-6 sm:mb-8 px-4 sm:px-5 py-2 bg-orange-500/90 backdrop-blur-md rounded-full border border-orange-300/30 shadow-lg animate-fade-in-up">
+                            <span className="text-xs sm:text-sm font-bold tracking-wide uppercase text-white">📚 Welcome to Books Reviewer</span>
                         </div>
-                        <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-2xl tracking-tight leading-tight animate-fade-in-up delay-100 text-white">
+                        <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 drop-shadow-2xl tracking-tight leading-tight animate-fade-in-up delay-100 text-white">
                             Transform Your<br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 via-orange-200 to-orange-300 drop-shadow-lg">
                                 Mindset
                             </span>
                         </h1>
-                        <p className="text-lg md:text-xl mb-8 text-gray-100 max-w-2xl mx-auto font-medium leading-relaxed animate-fade-in-up delay-200 drop-shadow-lg">
+                        <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-gray-100 max-w-2xl mx-auto font-medium leading-relaxed animate-fade-in-up delay-200 drop-shadow-lg">
                             Hand-picked masterworks to elevate your financial intelligence and personal growth.
                         </p>
-                        <div className="flex flex-wrap gap-5 justify-center animate-fade-in-up delay-300">
-                            <a href="#books" className="group px-8 py-4 bg-orange-500 text-white font-bold rounded-xl shadow-xl shadow-orange-500/30 hover:shadow-2xl hover:shadow-orange-500/40 hover:-translate-y-2 transition-all duration-300 flex items-center gap-2">
+                        <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-5 justify-center animate-fade-in-up delay-300">
+                            <a href="#books" className="group px-6 sm:px-8 py-3 sm:py-4 bg-orange-500 text-white font-bold rounded-xl shadow-xl shadow-orange-500/30 hover:shadow-2xl hover:shadow-orange-500/40 hover:-translate-y-2 transition-all duration-300 flex items-center justify-center gap-2">
                                 Explore Books
                                 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
                             </a>
-                            <Link to="/collections" className="px-8 py-4 bg-white/20 backdrop-blur-lg text-white font-bold rounded-xl border border-white/40 hover:bg-white/30 hover:-translate-y-2 transition-all duration-300 shadow-lg">
+                            <Link to="/collections" className="px-6 sm:px-8 py-3 sm:py-4 bg-white/20 backdrop-blur-lg text-white font-bold rounded-xl border border-white/40 hover:bg-white/30 hover:-translate-y-2 transition-all duration-300 shadow-lg">
                                 View Collections
                             </Link>
                         </div>
@@ -206,20 +206,20 @@ export default function Home() {
             </div>
 
             {/* Stats Section - Overlapping */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-20">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-12 sm:-mt-16 md:-mt-20">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                     {[
                         { icon: BookOpen, label: "Curated Books", value: `${books.length}+`, color: "text-blue-500", bg: "bg-blue-50" },
                         { icon: Users, label: "Happy Readers", value: "1000+", color: "text-emerald-500", bg: "bg-emerald-50" },
                         { icon: Star, label: "Average Rating", value: "4.8/5", color: "text-amber-500", bg: "bg-amber-50" }
                     ].map((stat, idx) => (
-                        <div key={idx} className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 flex items-center gap-6 transform hover:-translate-y-1 transition-transform duration-300">
-                            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${stat.bg}`}>
-                                <stat.icon className={stat.color} size={32} />
+                        <div key={idx} className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8 flex items-center gap-4 sm:gap-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 ${stat.bg}`}>
+                                <stat.icon className={stat.color} size={24} />
                             </div>
-                            <div>
-                                <h3 className="text-3xl font-bold text-gray-900 leading-none mb-1">{stat.value}</h3>
-                                <p className="text-gray-500 font-medium">{stat.label}</p>
+                            <div className="flex-1 min-w-0">
+                                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-none mb-1">{stat.value}</h3>
+                                <p className="text-sm sm:text-base text-gray-500 font-medium truncate">{stat.label}</p>
                             </div>
                         </div>
                     ))}
@@ -228,17 +228,17 @@ export default function Home() {
 
             {/* Book Combos Section */}
             {combos.length > 0 && (
-                <div className="py-24 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+                <div className="py-16 sm:py-20 md:py-24 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-12">
-                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full mb-4">
-                                <Package className="w-5 h-5 text-purple-600" />
-                                <span className="text-sm font-bold text-purple-600 uppercase tracking-wide">Special Offers</span>
+                        <div className="text-center mb-8 sm:mb-12">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full mb-3 sm:mb-4">
+                                <Package className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
+                                <span className="text-xs sm:text-sm font-bold text-purple-600 uppercase tracking-wide">Special Offers</span>
                             </div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
                                 Book Combos - Save More!
                             </h2>
-                            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
                                 Get curated book bundles at amazing discounts. Perfect for building your library.
                             </p>
                         </div>
@@ -271,32 +271,32 @@ export default function Home() {
             )}
 
             {/* Books Section */}
-            <div id="books" className="py-24 bg-white border-t border-gray-100">
+            <div id="books" className="py-16 sm:py-20 md:py-24 bg-white border-t border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-12 sm:mb-16">
                         {searchQuery ? (
                             <>
-                                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
                                     Search Results for "{searchQuery}"
                                 </h2>
-                                <p className="text-gray-500 text-lg mb-8">
+                                <p className="text-sm sm:text-base md:text-lg text-gray-500 mb-6 sm:mb-8">
                                     Found {filteredBooks.length} {filteredBooks.length === 1 ? 'book' : 'books'}
                                 </p>
                             </>
                         ) : (
                             <>
-                                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-serif tracking-tight">Featured Books</h2>
-                                <p className="text-gray-500 text-xl mb-10 max-w-2xl mx-auto">Hand-picked titles to accelerate your growth.</p>
+                                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 font-serif tracking-tight">Featured Books</h2>
+                                <p className="text-base sm:text-lg md:text-xl text-gray-500 mb-8 sm:mb-10 max-w-2xl mx-auto">Hand-picked titles to accelerate your growth.</p>
                             </>
                         )}
 
                         {/* Category Filters */}
-                        <div className="inline-flex p-1.5 bg-gray-100/80 rounded-full">
+                        <div className="inline-flex flex-wrap justify-center p-1 sm:p-1.5 bg-gray-100/80 rounded-full gap-1">
                             {CATEGORIES.map(cat => (
                                 <button
                                     key={cat}
                                     onClick={() => setFilters(prev => ({ ...prev, category: cat }))}
-                                    className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${filters.category === cat
+                                    className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${filters.category === cat
                                         ? 'bg-white text-gray-900 shadow-md transform scale-105'
                                         : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200/50'
                                         }`}
@@ -308,24 +308,24 @@ export default function Home() {
                     </div>
 
                     {/* Sorting and Results Count */}
-                    <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-10 pb-6 border-b border-gray-50">
-                        <p className="text-gray-500 text-sm font-medium">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-10 pb-4 sm:pb-6 border-b border-gray-50">
+                        <p className="text-gray-500 text-xs sm:text-sm font-medium">
                             {loading ? 'Loading...' : `Showing ${paginatedBooks.length} of ${sortedBooks.length} books`}
                         </p>
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
                             <button
                                 onClick={() => setFilterModalOpen(true)}
-                                className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:border-amber-400 hover:text-amber-600 transition-all text-sm font-semibold shadow-sm"
+                                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:border-amber-400 hover:text-amber-600 transition-all text-xs sm:text-sm font-semibold shadow-sm"
                             >
                                 <Sliders size={16} />
                                 Filters
                             </button>
-                            <div className="flex items-center gap-2 bg-white border border-gray-200 px-3 py-2 rounded-lg hover:border-amber-400 transition-colors shadow-sm">
-                                <ArrowUpDown size={16} className="text-gray-400" />
+                            <div className="flex-1 sm:flex-none flex items-center gap-2 bg-white border border-gray-200 px-3 py-2 rounded-lg hover:border-amber-400 transition-colors shadow-sm">
+                                <ArrowUpDown size={16} className="text-gray-400 flex-shrink-0" />
                                 <select
                                     value={filters.sortBy}
                                     onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value }))}
-                                    className="bg-transparent border-none outline-none text-sm font-semibold text-gray-700 cursor-pointer focus:ring-0"
+                                    className="bg-transparent border-none outline-none text-xs sm:text-sm font-semibold text-gray-700 cursor-pointer focus:ring-0 w-full"
                                     aria-label="Sort books by"
                                 >
                                     <option value="title">Sort by Title</option>

@@ -171,21 +171,21 @@ export default function Analytics() {
   }
 
   const StatCard = ({ icon: Icon, label, value, subtitle, trend }) => (
-    <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
-      <div className="flex items-start justify-between mb-4">
-        <div className={`p-3 rounded-lg bg-orange-100`}>
-          <Icon className="text-orange-600" size={24} />
+    <div className="bg-white rounded-xl shadow-md p-4 sm:p-6 border border-gray-100">
+      <div className="flex items-start justify-between mb-3 sm:mb-4">
+        <div className={`p-2 sm:p-3 rounded-lg bg-orange-100`}>
+          <Icon className="text-orange-600" size={20} />
         </div>
         {trend !== undefined && (
-          <div className={`flex items-center gap-1 text-sm font-semibold ${trend >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-            {trend >= 0 ? <ArrowUp size={16} /> : <ArrowDown size={16} />}
+          <div className={`flex items-center gap-1 text-xs sm:text-sm font-semibold ${trend >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+            {trend >= 0 ? <ArrowUp size={14} /> : <ArrowDown size={14} />}
             {Math.abs(trend)}%
           </div>
         )}
       </div>
-      <h3 className="text-gray-600 text-sm font-medium mb-1">{label}</h3>
-      <p className="text-3xl font-bold text-gray-900">{value}</p>
-      {subtitle && <p className="text-sm text-gray-500 mt-1">{subtitle}</p>}
+      <h3 className="text-gray-600 text-xs sm:text-sm font-medium mb-1">{label}</h3>
+      <p className="text-2xl sm:text-3xl font-bold text-gray-900 truncate">{value}</p>
+      {subtitle && <p className="text-xs sm:text-sm text-gray-500 mt-1 truncate">{subtitle}</p>}
     </div>
   )
 
@@ -202,17 +202,17 @@ export default function Analytics() {
   return (
     <AdminLayout>
       <div className="min-h-screen bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           {/* Header */}
-          <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Sales Analytics</h1>
-              <p className="text-gray-600">Track your store performance and insights</p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Sales Analytics</h1>
+              <p className="text-sm sm:text-base text-gray-600">Track your store performance and insights</p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full sm:w-auto">
               <button
                 onClick={() => setTimeRange('all')}
-                className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors text-xs sm:text-sm ${
                   timeRange === 'all' 
                     ? 'bg-orange-500 text-white' 
                     : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -222,7 +222,7 @@ export default function Analytics() {
               </button>
               <button
                 onClick={() => setTimeRange('month')}
-                className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors text-xs sm:text-sm ${
                   timeRange === 'month' 
                     ? 'bg-orange-500 text-white' 
                     : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -232,7 +232,7 @@ export default function Analytics() {
               </button>
               <button
                 onClick={() => setTimeRange('week')}
-                className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors text-xs sm:text-sm ${
                   timeRange === 'week' 
                     ? 'bg-orange-500 text-white' 
                     : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -244,7 +244,7 @@ export default function Analytics() {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
             <StatCard
               icon={IndianRupee}
               label="Total Revenue"
@@ -272,9 +272,9 @@ export default function Analytics() {
           </div>
 
           {/* Revenue by Category */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Revenue by Category</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+            <div className="bg-white rounded-xl shadow-md p-4 sm:p-6 border border-gray-100">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">Revenue by Category</h2>
               {analytics.revenueByCategory.length === 0 ? (
                 <p className="text-gray-500 text-center py-8">No data available</p>
               ) : (

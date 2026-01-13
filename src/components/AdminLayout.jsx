@@ -115,23 +115,24 @@ export default function AdminLayout({ children }) {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Top Bar */}
-        <header className="bg-white shadow-sm lg:hidden">
-          <div className="px-4 py-3 flex items-center justify-between">
+        <header className="bg-white shadow-sm lg:hidden sticky top-0 z-30">
+          <div className="px-4 sm:px-6 py-3 flex items-center justify-between">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="text-gray-600 hover:text-gray-900"
+              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+              aria-label="Open menu"
             >
               <Menu size={24} />
             </button>
-            <h1 className="text-lg font-bold text-gray-900">Admin Panel</h1>
-            <div className="w-6"></div>
+            <h1 className="text-lg sm:text-xl font-bold text-gray-900">Admin Panel</h1>
+            <div className="w-10"></div>
           </div>
         </header>
 
         {/* Page Content */}
-        <main className="flex-1">
+        <main className="flex-1 overflow-x-hidden">
           {children}
         </main>
       </div>
