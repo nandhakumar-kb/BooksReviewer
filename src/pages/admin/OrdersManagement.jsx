@@ -301,6 +301,7 @@ export default function OrdersManagement() {
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order ID</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Items</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
@@ -308,7 +309,9 @@ export default function OrdersManagement() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {filteredOrders.map((order) => (
+                  {filteredOrders.map((order) => {
+                    const items = JSON.parse(order.items_json || '[]')
+                    return (
                     <tr key={order.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
                         #{order.id}
@@ -316,6 +319,27 @@ export default function OrdersManagement() {
                       <td className="px-6 py-4">
                         <div className="text-sm font-medium text-gray-900">{order.customer_name}</div>
                         <div className="text-sm text-gray-500">{order.customer_phone}</div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="text-sm text-gray-900 max-w-xs">
+                          {items.length > 0 ? (
+                            <div className="space-y-1">
+                              {items.slice(0, 2).map((item, idx) => (
+                                <div key={idx} className="text-xs">
+                                  <span className="font-medium">{item.title}</span>
+                                  <span className="text-gray-500"> (x{item.quantity})</span>
+                                </div>
+                              ))}
+                              {items.length > 2 && (
+                                <div className="text-xs text-gray-500">
+                                  +{items.length - 2} more item{items.length - 2 > 1 ? 's' : ''}
+                                </div>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="text-gray-400 text-xs">No items</span>
+                          )}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
                         ₹{parseFloat(order.total_amount).toLocaleString('en-IN')}
@@ -348,7 +372,8 @@ export default function OrdersManagement() {
                         </button>
                       </td>
                     </tr>
-                  ))}
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
