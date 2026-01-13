@@ -117,7 +117,15 @@ export default function OrdersManagement() {
   }
 
   const OrderDetailsModal = ({ order, onClose }) => {
-    const items = JSON.parse(order.items_json || '[]')
+    let items = []
+    try {
+      // Handle both object and JSON string
+      items = typeof order.items_json === 'string' 
+        ? JSON.parse(order.items_json) 
+        : (order.items_json || [])
+    } catch (e) {
+      console.error('Error parsing items_json for order', order.id, e)
+    }
 
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -312,7 +320,10 @@ export default function OrdersManagement() {
                   {filteredOrders.map((order) => {
                     let items = []
                     try {
-                      items = JSON.parse(order.items_json || '[]')
+                      // Handle both object and JSON string
+                      items = typeof order.items_json === 'string' 
+                        ? JSON.parse(order.items_json) 
+                        : (order.items_json || [])
                     } catch (e) {
                       console.error('Error parsing items_json for order', order.id, e)
                     }
