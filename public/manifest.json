@@ -1,0 +1,32 @@
+{
+  "name": "Books Reviewer",
+  "short_name": "Books Reviewer",
+  "description": "Hand-picked books on self-development, finance, and success. Transform your life one page at a time.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f59e0b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["books", "shopping", "education"],
+  "screenshots": [
+    {
+      "src": "/books1.jpeg",
+      "sizes": "540x720",
+      "type": "image/jpeg"
+    }
+  ]
+}

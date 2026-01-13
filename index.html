@@ -4,8 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/jpeg" href="/logo.jpeg" />
+  <link rel="apple-touch-icon" href="/logo.jpeg" />
+  <link rel="shortcut icon" type="image/jpeg" href="/logo.jpeg" />
+  <link rel="manifest" href="/manifest.json" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#f59e0b" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Books Reviewer" />
   <meta name="description" content="Hand-picked books on self-development, finance, and success. Transform your life one page at a time." />
   <meta name="keywords" content="books, self development, finance, personal growth, success, reading, book store" />
   <meta name="author" content="Books Reviewer" />
@@ -45,6 +52,20 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
+  <script>
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registered successfully:', registration.scope);
+          })
+          .catch(error => {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
 </body>
 
 </html>
