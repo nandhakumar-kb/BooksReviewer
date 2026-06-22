@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { useToast } from '../context/ToastContext'
 import SEO from '../components/SEO'
-import ComboCard from '../components/ComboCard'
+import ProductCard from '../components/ProductCard'
 import BookCardSkeleton from '../components/BookCardSkeleton'
 import { Loader, BookOpen, TrendingUp, Award, Package } from 'lucide-react'
 
@@ -37,17 +37,26 @@ export default function Collections() {
         }
     }, [viewType])
 
+    const MOCK_BOOKS = [
+        { id: 1, title: 'Rich Dad Poor Dad', author: 'Robert Kiyosaki', price: 299, original_price: 499, category: 'Finance', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Rich+Dad' },
+        { id: 2, title: 'Atomic Habits', author: 'James Clear', price: 399, original_price: 599, category: 'Self Development', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Atomic+Habits' },
+        { id: 3, title: 'Think and Grow Rich', author: 'Napoleon Hill', price: 249, original_price: 399, category: 'Finance', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Think+Rich' },
+        { id: 4, title: 'The 5 AM Club', author: 'Robin Sharma', price: 299, original_price: 450, category: 'Self Development', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=5AM+Club' },
+        { id: 5, title: 'Leaders Eat Last', author: 'Simon Sinek', price: 450, original_price: 600, category: 'Leadership', in_stock: false, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Leaders' },
+        { id: 6, title: 'Deep Work', author: 'Cal Newport', price: 350, original_price: 500, category: 'Self Development', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Deep+Work' }
+    ];
+
+    const MOCK_COMBOS = [
+        { id: 101, title: 'The Productivity Bundle', description: 'Master your time with Atomic Habits and Deep Work.', price: 650, original_price: 1099, image_url: 'https://placehold.co/800x600/F8FAFC/0B132B?text=Productivity+Bundle' },
+        { id: 102, title: 'Wealth Starter Pack', description: 'Rich Dad Poor Dad + Think and Grow Rich to kickstart your journey.', price: 499, original_price: 898, image_url: 'https://placehold.co/800x600/F8FAFC/0B132B?text=Wealth+Pack' }
+    ];
+
     const fetchCollections = async () => {
         try {
             setLoading(true)
-            const { data, error } = await supabase
-                .from('books')
-                .select('category')
+            await new Promise(resolve => setTimeout(resolve, 300))
 
-            if (error) throw error
-
-            // Count books per category
-            const categoryCounts = data.reduce((acc, book) => {
+            const categoryCounts = MOCK_BOOKS.reduce((acc, book) => {
                 acc[book.category] = (acc[book.category] || 0) + 1
                 return acc
             }, {})
@@ -71,13 +80,8 @@ export default function Collections() {
     const fetchCombos = async () => {
         try {
             setCombosLoading(true)
-            const { data, error } = await supabase
-                .from('combos')
-                .select('*')
-                .eq('is_active', true)
-            
-            if (error) throw error
-            setCombos(data || [])
+            await new Promise(resolve => setTimeout(resolve, 300))
+            setCombos(MOCK_COMBOS)
         } catch (error) {
             toast.error('Failed to load combos')
         } finally {
@@ -148,7 +152,7 @@ export default function Collections() {
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                             {combos.map((combo) => (
-                                <ComboCard key={combo.id} combo={combo} />
+                                <ProductCard key={combo.id} product={combo} isCombo={true} />
                             ))}
                         </div>
                     )}
