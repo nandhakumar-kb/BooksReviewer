@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
-import { supabase } from '../lib/supabaseClient'
 import emailjs from '@emailjs/browser'
 import { useNavigate } from 'react-router-dom'
 import { CheckCircle, ArrowLeft } from 'lucide-react'
@@ -120,21 +119,11 @@ export default function CheckoutPage() {
         if (loading) return // Prevent double submission
         setLoading(true)
         try {
-            const { error: dbError } = await supabase
-                .from('orders')
-                .insert([
-                    {
-                        user_id: user?.id || null, // Link to user if logged in
-                        customer_name: formData.name,
-                        customer_phone: formData.phone,
-                        address: `${formData.address}, ${formData.city}, ${formData.state} - ${formData.pincode}`,
-                        total_amount: grandTotal,
-                        items_json: cart,
-                        status: 'Pending'
-                    }
-                ])
+            // Mock placing order delay
+            await new Promise(resolve => setTimeout(resolve, 1500))
 
-            if (dbError) throw dbError
+            // Check if mock user
+            const userId = user?.id || null;
 
             // Prepare detailed order items list for email
             const orderItemsList = cart.map(item => 
@@ -421,8 +410,9 @@ export default function CheckoutPage() {
                                         value={formData.pincode}
                                         onChange={handleChange}
                                         error={errors.pincode}
-                                        required                                        maxLength="6"                                        placeholder="000000"
+                                        required
                                         maxLength="6"
+                                        placeholder="000000"
                                     />
                                 </div>
 

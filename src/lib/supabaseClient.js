@@ -1,17 +1,36 @@
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-
-// Validate environment variables
-if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error(
-        '❌ Missing Supabase environment variables!\n\n' +
-        'Please create a .env file in the root directory with:\n' +
-        'VITE_SUPABASE_URL=your_supabase_url\n' +
-        'VITE_SUPABASE_ANON_KEY=your_anon_key\n\n' +
-        'See .env.example for more details.'
-    )
+// Mock Supabase Client for frontend-only mode
+export const supabase = {
+    auth: {
+        getSession: () => Promise.resolve({ data: { session: null }, error: null }),
+        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+        signUp: () => Promise.resolve({ data: null, error: null }),
+        signInWithPassword: () => Promise.resolve({ data: null, error: null }),
+        signOut: () => Promise.resolve({ error: null }),
+        resetPasswordForEmail: () => Promise.resolve({ error: null }),
+        getUser: () => Promise.resolve({ data: { user: null }, error: null })
+    },
+    from: (table) => ({
+        select: () => ({
+            eq: () => ({
+                single: () => Promise.resolve({ data: null, error: null, count: 0 }),
+                neq: () => ({
+                    limit: () => Promise.resolve({ data: [], error: null, count: 0 })
+                }),
+                order: () => Promise.resolve({ data: [], error: null, count: 0 })
+            }),
+            order: () => ({
+                limit: () => Promise.resolve({ data: [], error: null, count: 0 }),
+                eq: () => Promise.resolve({ data: [], error: null, count: 0 })
+            }),
+            limit: () => Promise.resolve({ data: [], error: null, count: 0 }),
+            then: (resolve) => resolve({ data: [], error: null, count: 0 })
+        }),
+        insert: () => Promise.resolve({ data: null, error: null }),
+        update: () => ({
+            eq: () => Promise.resolve({ data: null, error: null })
+        }),
+        delete: () => ({
+            eq: () => Promise.resolve({ data: null, error: null })
+        })
+    })
 }
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)

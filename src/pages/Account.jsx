@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
-import { supabase } from '../lib/supabaseClient'
 import { useNavigate } from 'react-router-dom'
 import { User, Package, LogOut, Loader, XCircle } from 'lucide-react'
 
@@ -15,14 +14,9 @@ export default function Account() {
 
     const fetchOrders = useCallback(async () => {
         try {
-            const { data, error } = await supabase
-                .from('orders')
-                .select('*')
-                .eq('user_id', user.id)
-                .order('created_at', { ascending: false })
-
-            if (error) throw error
-            setOrders(data)
+            setLoadingOrders(true)
+            await new Promise(resolve => setTimeout(resolve, 500))
+            setOrders([]) // Mock empty orders
         } catch (error) {
             toast.error('Failed to load orders')
         } finally {
@@ -49,12 +43,7 @@ export default function Account() {
         if (!confirm('Are you sure you want to cancel this order?')) return
 
         try {
-            const { error } = await supabase
-                .from('orders')
-                .update({ status: 'Cancelled' })
-                .eq('id', orderId)
-
-            if (error) throw error
+            await new Promise(resolve => setTimeout(resolve, 500))
 
             // Update local state
             setOrders(orders.map(order => 

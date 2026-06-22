@@ -1,10 +1,18 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { supabase } from '../lib/supabaseClient'
 import { Loader } from 'lucide-react'
 
 const AuthContext = createContext()
 
 export const useAuth = () => useContext(AuthContext)
+
+// Mock user for frontend-only mode
+const MOCK_USER = {
+    id: 'mock-user-123',
+    email: 'mockuser@example.com',
+    user_metadata: {
+        full_name: 'Mock User'
+    }
+}
 
 // Loading component
 function AuthLoader() {
@@ -19,50 +27,36 @@ function AuthLoader() {
 }
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(true)
+    const [user, setUser] = useState(MOCK_USER)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        // Check active session
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setUser(session?.user ?? null)
-            setLoading(false)
-        })
-
-        // Listen for changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            setUser(session?.user ?? null)
-            setLoading(false)
-        })
-
-        return () => subscription.unsubscribe()
+        // Mock checking session
+        setLoading(true)
+        setTimeout(() => setLoading(false), 500)
     }, [])
 
     const signUp = async (email, password) => {
-        const { data, error } = await supabase.auth.signUp({ 
-            email, 
-            password,
-            options: {
-                emailRedirectTo: `${window.location.origin}/account`
-            }
-        })
-        
-        // Return success even if email confirmation is required
-        return { data, error }
+        // Return mock success
+        return new Promise(resolve => setTimeout(() => resolve({ data: { user: MOCK_USER }, error: null }), 500))
     }
 
-    const signIn = (email, password) => {
-        return supabase.auth.signInWithPassword({ email, password })
+    const signIn = async (email, password) => {
+        return new Promise(resolve => setTimeout(() => {
+            setUser(MOCK_USER)
+            resolve({ data: { user: MOCK_USER }, error: null })
+        }, 500))
     }
 
-    const signOut = () => {
-        return supabase.auth.signOut()
+    const signOut = async () => {
+        return new Promise(resolve => setTimeout(() => {
+            setUser(null)
+            resolve({ error: null })
+        }, 500))
     }
 
-    const resetPassword = (email) => {
-        return supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: `${window.location.origin}/reset-password`
-        })
+    const resetPassword = async (email) => {
+        return new Promise(resolve => setTimeout(() => resolve({ error: null }), 500))
     }
 
     return (
