@@ -12,6 +12,7 @@ import FilterModal from '../components/FilterModal'
 import { TrendingUp, BookOpen, Users, Award, ArrowRight, Sparkles, Star, ArrowUpDown, Sliders, Package } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CATEGORIES, APP_CONFIG } from '../lib/constants'
+import { MOCK_BOOKS, MOCK_COMBOS } from '../lib/mockData'
 
 const { ITEMS_PER_PAGE } = APP_CONFIG
 
@@ -39,20 +40,6 @@ const FEATURED_CATEGORIES = [
     }
 ]
 
-const MOCK_BOOKS = [
-    { id: 1, title: 'Rich Dad Poor Dad', author: 'Robert Kiyosaki', price: 299, original_price: 499, category: 'Finance', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Rich+Dad' },
-    { id: 2, title: 'Atomic Habits', author: 'James Clear', price: 399, original_price: 599, category: 'Self Development', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Atomic+Habits' },
-    { id: 3, title: 'Think and Grow Rich', author: 'Napoleon Hill', price: 249, original_price: 399, category: 'Finance', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Think+Rich' },
-    { id: 4, title: 'The 5 AM Club', author: 'Robin Sharma', price: 299, original_price: 450, category: 'Self Development', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=5AM+Club' },
-    { id: 5, title: 'Leaders Eat Last', author: 'Simon Sinek', price: 450, original_price: 600, category: 'Leadership', in_stock: false, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Leaders' },
-    { id: 6, title: 'Deep Work', author: 'Cal Newport', price: 350, original_price: 500, category: 'Self Development', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Deep+Work' }
-];
-
-const MOCK_COMBOS = [
-    { id: 101, title: 'The Productivity Bundle', description: 'Master your time with Atomic Habits and Deep Work.', price: 650, original_price: 1099, image_url: 'https://placehold.co/800x600/F8FAFC/0B132B?text=Productivity+Bundle' },
-    { id: 102, title: 'Wealth Starter Pack', description: 'Rich Dad Poor Dad + Think and Grow Rich to kickstart your journey.', price: 499, original_price: 898, image_url: 'https://placehold.co/800x600/F8FAFC/0B132B?text=Wealth+Pack' }
-];
-
 export default function Home() {
     const [books, setBooks] = useState([])
     const [combos, setCombos] = useState([])
@@ -72,36 +59,11 @@ export default function Home() {
     const toast = useToast()
 
     useEffect(() => {
-        let isMounted = true;
-        const fetchBooks = async () => {
-            try {
-                setLoading(true)
-                await new Promise(resolve => setTimeout(resolve, 500))
-                if (isMounted) setBooks(MOCK_BOOKS)
-            } catch (error) {
-                toast.error('Failed to load books. Please try again.')
-            } finally {
-                if (isMounted) setLoading(false)
-            }
-        }
-
-        const fetchCombos = async () => {
-            try {
-                setCombosLoading(true)
-                await new Promise(resolve => setTimeout(resolve, 500))
-                if (isMounted) setCombos(MOCK_COMBOS)
-            } catch (error) {
-                console.error('Failed to load combos:', error)
-            } finally {
-                if (isMounted) setCombosLoading(false)
-            }
-        }
-
-        fetchBooks()
-        fetchCombos()
-
-        return () => { isMounted = false; }
-    }, [])
+        setBooks(MOCK_BOOKS);
+        setCombos(MOCK_COMBOS);
+        setLoading(false);
+        setCombosLoading(false);
+    }, []);
 
     // Moved fetchBooks and fetchCombos inside useEffect above
 

@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabaseClient'
 import { useToast } from '../context/ToastContext'
 import SEO from '../components/SEO'
 import ProductCard from '../components/ProductCard'
+import { MOCK_BOOKS, MOCK_COMBOS } from '../lib/mockData'
 import BookCardSkeleton from '../components/BookCardSkeleton'
 import { Loader, BookOpen, TrendingUp, Award, Package } from 'lucide-react'
 
@@ -19,20 +20,6 @@ const COLLECTION_COLORS = {
     'Leadership': 'from-amber-500 to-orange-500'
 }
 
-const MOCK_BOOKS = [
-    { id: 1, title: 'Rich Dad Poor Dad', author: 'Robert Kiyosaki', price: 299, original_price: 499, category: 'Finance', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Rich+Dad' },
-    { id: 2, title: 'Atomic Habits', author: 'James Clear', price: 399, original_price: 599, category: 'Self Development', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Atomic+Habits' },
-    { id: 3, title: 'Think and Grow Rich', author: 'Napoleon Hill', price: 249, original_price: 399, category: 'Finance', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Think+Rich' },
-    { id: 4, title: 'The 5 AM Club', author: 'Robin Sharma', price: 299, original_price: 450, category: 'Self Development', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=5AM+Club' },
-    { id: 5, title: 'Leaders Eat Last', author: 'Simon Sinek', price: 450, original_price: 600, category: 'Leadership', in_stock: false, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Leaders' },
-    { id: 6, title: 'Deep Work', author: 'Cal Newport', price: 350, original_price: 500, category: 'Self Development', in_stock: true, image_url: 'https://placehold.co/400x600/F8FAFC/0B132B?text=Deep+Work' }
-];
-
-const MOCK_COMBOS = [
-    { id: 101, title: 'The Productivity Bundle', description: 'Master your time with Atomic Habits and Deep Work.', price: 650, original_price: 1099, image_url: 'https://placehold.co/800x600/F8FAFC/0B132B?text=Productivity+Bundle' },
-    { id: 102, title: 'Wealth Starter Pack', description: 'Rich Dad Poor Dad + Think and Grow Rich to kickstart your journey.', price: 499, original_price: 898, image_url: 'https://placehold.co/800x600/F8FAFC/0B132B?text=Wealth+Pack' }
-];
-
 export default function Collections() {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
@@ -44,52 +31,23 @@ export default function Collections() {
     const [combosLoading, setCombosLoading] = useState(false)
 
     useEffect(() => {
-        let isMounted = true;
-        const fetchCollections = async () => {
-            try {
-                setLoading(true)
-                await new Promise(resolve => setTimeout(resolve, 300))
+        const categoryCounts = MOCK_BOOKS.reduce((acc, book) => {
+            acc[book.category] = (acc[book.category] || 0) + 1
+            return acc
+        }, {})
 
-                const categoryCounts = MOCK_BOOKS.reduce((acc, book) => {
-                    acc[book.category] = (acc[book.category] || 0) + 1
-                    return acc
-                }, {})
+        const collectionsData = Object.entries(categoryCounts).map(([category, count]) => ({
+            id: category.toLowerCase().replace(/\s+/g, '-'),
+            name: category,
+            count: `${count} Books`,
+            icon: COLLECTION_ICONS[category] || BookOpen,
+            gradient: COLLECTION_COLORS[category] || 'from-gray-500 to-gray-700'
+        }))
 
-                const collectionsData = Object.entries(categoryCounts).map(([category, count]) => ({
-                    id: category.toLowerCase().replace(/\s+/g, '-'),
-                    name: category,
-                    count: `${count} Books`,
-                    icon: COLLECTION_ICONS[category] || BookOpen,
-                    gradient: COLLECTION_COLORS[category] || 'from-gray-500 to-gray-700'
-                }))
-
-                if (isMounted) setCollections(collectionsData)
-            } catch (error) {
-                toast.error('Failed to load collections')
-            } finally {
-                if (isMounted) setLoading(false)
-            }
-        }
-
-        const fetchCombos = async () => {
-            try {
-                setCombosLoading(true)
-                await new Promise(resolve => setTimeout(resolve, 300))
-                if (isMounted) setCombos(MOCK_COMBOS)
-            } catch (error) {
-                toast.error('Failed to load combos')
-            } finally {
-                if (isMounted) setCombosLoading(false)
-            }
-        }
-
-        if (viewType === 'combos') {
-            fetchCombos()
-        } else {
-            fetchCollections()
-        }
-
-        return () => { isMounted = false; }
+        setCollections(collectionsData)
+        setCombos(MOCK_COMBOS)
+        setLoading(false)
+        setCombosLoading(false)
     }, [viewType])
 
     // Moved fetchCollections and fetchCombos inside useEffect above

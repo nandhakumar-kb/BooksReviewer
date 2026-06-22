@@ -15,6 +15,7 @@ import { Loader } from 'lucide-react'
 // Lazy load pages for code splitting
 const Home = lazy(() => import('./pages/Home'))
 const ProductDetails = lazy(() => import('./pages/ProductDetails'))
+const ComboDetails = lazy(() => import('./pages/ComboDetails'))
 const Collections = lazy(() => import('./pages/Collections'))
 const Wishlist = lazy(() => import('./pages/Wishlist'))
 const Account = lazy(() => import('./pages/Account'))
@@ -65,6 +66,7 @@ function App() {
                       <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/product/:id" element={<ProductDetails />} />
+                        <Route path="/combo/:id" element={<ComboDetails />} />
                         <Route path="/collections" element={<Collections />} />
                         <Route path="/wishlist" element={<Wishlist />} />
                         <Route path="/account" element={<Account />} />

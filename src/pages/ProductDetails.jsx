@@ -6,6 +6,8 @@ import { useToast } from '../context/ToastContext'
 import SEO from '../components/SEO'
 import Breadcrumbs from '../components/Breadcrumbs'
 import BookCard from '../components/BookCard'
+import ProductCard from '../components/ProductCard'
+import { MOCK_BOOKS } from '../lib/mockData'
 import { ArrowLeft, ShoppingBag, Loader, Truck, ShieldCheck } from 'lucide-react'
 
 export default function ProductDetails() {
@@ -20,24 +22,18 @@ export default function ProductDetails() {
     const fetchBook = useCallback(async () => {
         try {
             setLoading(true)
-            const { data, error } = await supabase
-                .from('books')
-                .select('*')
-                .eq('id', id)
-                .single()
+            
+            // Find book from mock data
+            const bookId = parseInt(id)
+            const bookData = MOCK_BOOKS.find(b => b.id === bookId)
+            
+            if (!bookData) throw new Error("Book not found")
+            
+            setBook(bookData)
 
-            if (error) throw error
-            setBook(data)
-
-            // Fetch related books from same category
-            const { data: related } = await supabase
-                .from('books')
-                .select('*')
-                .eq('category', data.category)
-                .neq('id', id)
-                .limit(4)
-
-            setRelatedBooks(related || [])
+            // Find related books from same category
+            const related = MOCK_BOOKS.filter(b => b.category === bookData.category && b.id !== bookId).slice(0, 4)
+            setRelatedBooks(related)
         } catch (error) {
             toast.error('Failed to load book details')
             navigate('/') // Redirect on error
@@ -191,7 +187,7 @@ export default function ProductDetails() {
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-8 sm:gap-8">
                         {relatedBooks.map(relatedBook => (
-                            <BookCard key={relatedBook.id} book={relatedBook} />
+                            <ProductCard key={relatedBook.id} product={relatedBook} />
                         ))}
                     </div>
                 </div>
