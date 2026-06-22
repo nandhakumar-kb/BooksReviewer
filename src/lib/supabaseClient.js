@@ -14,13 +14,16 @@ export const supabase = {
             eq: () => ({
                 single: () => Promise.resolve({ data: null, error: null, count: 0 }),
                 neq: () => ({
-                    limit: () => Promise.resolve({ data: [], error: null, count: 0 })
+                    limit: () => Promise.resolve({ data: [], error: null, count: 0 }),
+                    then: (resolve) => resolve({ data: [], error: null, count: 0 })
                 }),
-                order: () => Promise.resolve({ data: [], error: null, count: 0 })
+                order: () => Promise.resolve({ data: [], error: null, count: 0 }),
+                then: (resolve) => resolve({ data: [], error: null, count: 0 })
             }),
             order: () => ({
                 limit: () => Promise.resolve({ data: [], error: null, count: 0 }),
-                eq: () => Promise.resolve({ data: [], error: null, count: 0 })
+                eq: () => Promise.resolve({ data: [], error: null, count: 0 }),
+                then: (resolve) => resolve({ data: [], error: null, count: 0 })
             }),
             limit: () => Promise.resolve({ data: [], error: null, count: 0 }),
             then: (resolve) => resolve({ data: [], error: null, count: 0 })
